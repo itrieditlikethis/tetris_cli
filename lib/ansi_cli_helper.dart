@@ -1,3 +1,5 @@
+import 'dart:io';
+
 // Background color constants
 typedef AnsiBackgroundColor = String;
 const AnsiBackgroundColor blackBgColor = '\u001b[40m';
@@ -19,3 +21,21 @@ const AnsiTextColor blueTColor = '\u001b[34m';
 const AnsiTextColor magentaTColor = '\u001b[35m';
 const AnsiTextColor cyanTColor = '\u001b[36m';
 const AnsiTextColor whiteTColor = '\u001b[37m';
+
+// Show or hode cursor
+bool _isHideCursor = false;
+bool isHideCursor() => _isHideCursor;
+
+void showCursor() {
+  if (_isHideCursor) {
+    stdout.write('\u001b[?25h');
+    _isHideCursor = false;
+  }
+}
+
+void hideCursor() {
+  if (!_isHideCursor) {
+    stdout.write('\u001b[?25l');
+    _isHideCursor = true;
+  }
+}
