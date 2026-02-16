@@ -22,7 +22,7 @@ const AnsiTextColor magentaTColor = '\u001b[35m';
 const AnsiTextColor cyanTColor = '\u001b[36m';
 const AnsiTextColor whiteTColor = '\u001b[37m';
 
-// Show or hode cursor
+// Toggle cursor
 bool _isHideCursor = false;
 bool isHideCursor() => _isHideCursor;
 
@@ -38,4 +38,35 @@ void hideCursor() {
     stdout.write('\u001b[?25l');
     _isHideCursor = true;
   }
+}
+
+// Set text and background color
+void setTextColor(AnsiTextColor color) {
+  stdout.write(color);
+}
+
+void setBackgroundColor(AnsiBackgroundColor color) {
+  stdout.write(color);
+}
+
+// Clear screen
+void clear() {
+  stdout.write('\u001b[2J\u001b[0;0H');
+}
+
+// Clear screen and color reset
+void reset() {
+  setTextColor(whiteTColor);
+  setBackgroundColor(blackBgColor);
+  clear();
+  showCursor();
+}
+
+// Moves cursot to the target position
+// from top left corner with 0, 0 coordinates
+void gotoxy(int x, int y) {
+  if (x < 0 || y < 0) {
+    return;
+  }
+  stdout.write('\u001b[$y;${x}H');
 }
